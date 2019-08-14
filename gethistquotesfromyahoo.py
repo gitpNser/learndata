@@ -66,15 +66,26 @@ def close_mean(stock_code):
     
     return close_mean
 
-x_KO = close_mean('KO').index
-y_KO = close_mean('KO').values
+# 暂时屏蔽为下个课程学习使用
+#x_KO = close_mean('KO').index
+#y_KO = close_mean('KO').values
+#
+#x_IBM = close_mean('IBM').index
+#y_IBM = close_mean('IBM').values
+#
+#plt.subplot(211)
+#plt.plot(x_KO,y_KO,color='r',marker='o')
+#plt.subplot(212)
+#plt.plot(x_IBM,y_IBM,color='green',marker='o')
 
-x_IBM = close_mean('IBM').index
-y_IBM = close_mean('IBM').values
+#使用pandas的plot方法直接作图    
+#INTC_volume = create_quotes_df('INTC').groupby('month').volume.mean()
+#IBM_volume = create_quotes_df('IBM').groupby('month').volume.mean()
+#quotesIIdf = pd.DataFrame()
+#quotesIIdf['INTC'] = INTC_volume
+#quotesIIdf['IBM'] = IBM_volume
+#quotesIIdf.plot(kind='bar')
 
-plt.subplot(211)
-plt.plot(x_KO,y_KO,color='r',marker='o')
-plt.subplot(212)
-plt.plot(x_IBM,y_IBM,color='green',marker='o')
-    
-
+# 保存数据到csv
+quotes_IBM = create_quotes_df('IBM')
+quotes_IBM.to_csv('stockIBM.csv')    
