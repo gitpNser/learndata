@@ -11,13 +11,13 @@ import pandas as pd
 from bs4 import BeautifulSoup
 #import chardet
 
-def get_charpters(id_1,id_2):
+def get_charpters(book,bookurl):
     
     BASE_URL = 'http://www.xbiquge.la'
-    book_URL = 'http://www.xbiquge.la/%s/%s' % (id_1, id_2)
+    book_URL = bookurl
     
     try:
-        r = requests.get(book_URL)
+        r = requests.get(book_URL,timeout=30)
     except ConnectionError as err:
         print(err)
         
@@ -39,9 +39,9 @@ def get_charpters(id_1,id_2):
 
 #def get_content(url):
     
-    URL_list = str(id1) + str(id2) + 'list' + '.txt'
+    book_name = book + '.txt'
     
-    with open(URL_list, 'a+', encoding='utf-8') as f:
+    with open(book_name, 'a+', encoding='utf-8') as f:
         
         f.seek(0)
         data = f.read()
@@ -55,7 +55,7 @@ def get_charpters(id_1,id_2):
                 continue
             else:
                 try:
-                    r_content = requests.get(item[0])
+                    r_content = requests.get(item[0],timeout=10)
                     print('Downloing Charpter: %s' % (item[1]))
                 except ConnectionError as err:
                     print(err)
@@ -65,7 +65,7 @@ def get_charpters(id_1,id_2):
                 soup = BeautifulSoup(r_content.text, 'lxml')      
                 
                 content = soup.find("div",{"id":"content"}).get_text()
-                   
+                
                 f.write(item[0])
                 f.write('\n')
                 f.write(item[1])
@@ -79,9 +79,19 @@ def get_charpters(id_1,id_2):
 
     
 if __name__ == "__main__":
-    id1 = 19
-    id2 = 19620
-    get_charpters(id1,id2)
+    
+    book = input('请输入想下载的书籍：')
+    
+    novel = pd.read_csv('biquge_all.csv')
+    
+    if book in novel['name'].values:
+        bookurl = novel[novel['name']==book]['URL'].values[0]
+        get_charpters(book,bookurl)
+    else:
+        print('NOT FOUND')
+    
+
+        
 
     
     
