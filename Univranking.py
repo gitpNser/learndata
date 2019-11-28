@@ -53,5 +53,5 @@ if __name__ == "__main__":
     
     URL = 'http://www.zuihaodaxue.cn/zuihaodaxuepaiming2019.html'
     text = getHTMLText(URL)
-    print(fillUnivList(text))
+    print(fillUnivList(text).iloc[:20,:4])
 #    fillUnivList(text)

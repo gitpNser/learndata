@@ -42,11 +42,11 @@ def printulist(ulist,num):
     tplt = '{0:^10}\t{1:{3}^10}\t{2:^10}'
     # chr(12288)是中文空格符
     # 在信息宽度不够需要字符填充时使用中文空格填充而不是西文空格填充，避免对齐问题
-    print(tplt.format('排名','学校','省市',chr(12288)))
+    print(tplt.format('排名','学校','分数',chr(12288)))
     # 输出对应数字的大学信息
     for i in range(num):
         u = ulist[i]
-        print(tplt.format(u[0],u[1],u[2],chr(12288)))
+        print(tplt.format(u[0],u[1],u[3],chr(12288)))
     
 if __name__ == "__main__":
     
